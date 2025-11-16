@@ -42,11 +42,33 @@ export default function Document() {
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
+
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* App Icons */}
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+
         <title>FullTask AI</title>
       </Head>
+
       <body>
         <Main />
         <NextScript />
+
+        {/* Service Worker Register */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+                navigator.serviceWorker.register("/service-worker.js")
+                  .catch(err => console.log("SW registration failed", err));
+              }
+            `,
+          }}
+        />
       </body>
     </Html>
   );
