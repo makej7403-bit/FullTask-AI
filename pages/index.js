@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -56,39 +57,55 @@ export default function Home() {
   }
 
   return (
-    <div style={styles.page}>
-      <div style={styles.overlay} />
-      <main style={styles.container}>
-        <div style={styles.chat}>
-          <div ref={containerRef} style={styles.messages}>
-            {messages.map((m, i) => (
-              <div key={i} style={m.role === 'user' ? styles.user : styles.ai}>
-                {m.text}
-              </div>
-            ))}
-          </div>
+    <>
+      {/* SEO + Google Verification */}
+      <Head>
+        <title>Full Task AI – Smart Scholarship & Learning Assistant</title>
+        <meta
+          name="description"
+          content="Full Task AI helps you find scholarships, books, courses, and provides instant AI chat support created by Akin S Sokpah from Liberia."
+        />
+        <meta
+          name="keywords"
+          content="Full Task AI, AI chatbot, scholarships, online courses, Akin Sokpah, Liberia"
+        />
+        <meta name="google-site-verification" content="d8d_1kq-ciq9ByO6gLexUEE9t9snSDd8vwgfnhycVAo" />
+      </Head>
 
-          <div style={styles.inputBar}>
-            <textarea
-              placeholder={loading ? 'Thinking...' : 'Ask me anything...'}
-              value={input}
-              disabled={loading}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              style={styles.textarea}
-            />
+      <div style={styles.page}>
+        <div style={styles.overlay} />
+        <main style={styles.container}>
+          <div style={styles.chat}>
+            <div ref={containerRef} style={styles.messages}>
+              {messages.map((m, i) => (
+                <div key={i} style={m.role === 'user' ? styles.user : styles.ai}>
+                  {m.text}
+                </div>
+              ))}
+            </div>
 
-            <button
-              onClick={() => sendMessage(input)}
-              disabled={!input.trim() || loading}
-              style={styles.button}
-            >
-              {loading ? '...' : 'Send'}
-            </button>
+            <div style={styles.inputBar}>
+              <textarea
+                placeholder={loading ? 'Thinking...' : 'Ask me anything...'}
+                value={input}
+                disabled={loading}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={handleKey}
+                style={styles.textarea}
+              />
+
+              <button
+                onClick={() => sendMessage(input)}
+                disabled={!input.trim() || loading}
+                style={styles.button}
+              >
+                {loading ? '...' : 'Send'}
+              </button>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }
 
